@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Glowther - Welcome</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      height: 100vh;
+      background: linear-gradient(-45deg, #e0f7fa, #fce4ec, #f3e5f5, #e1f5fe);
+      background-size: 400% 400%;
+      animation: gradientMotion 12s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @keyframes gradientMotion {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .logo-container {
+      position: absolute;
+      top: 45px;
+      left: 30px;
+    }
+
+    .logo {
+      height: 70px;
+      width: auto;
+    }
+
+    .main {
+      display: flex;
+      align-items: center;
+      gap: 60px;
+      max-width: 1000px;
+      width: 90%;
+      padding: 20px;
+    }
+
+    .main img {
+      width: 400px;
+      max-width: 45vw;
+    }
+
+    .text {
+      flex: 1;
+    }
+
+    .text h1 {
+      font-size: 40px;
+      color: #2f4f4f;
+      margin-bottom: 20px;
+    }
+
+    .text p {
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 30px;
+    }
+
+    .button {
+      background-color: #fbc02d;
+      color: white;
+      padding: 12px 25px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #f9a825;
+    }
+
+    @media (max-width: 768px) {
+      .main {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .main img {
+        width: 70%;
+      }
+
+      .text h1 {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Logo kiri atas -->
+  <div class="logo-container">
+    <img src="{{ url_for('static', filename='images/logo4.png') }}" alt="Glowther Logo" class="logo">
+  </div>
+
+  <!-- Konten utama -->
+  <div class="main">
+    <img src="{{ url_for('static', filename='images/pic1.png') }}" alt="Illustration">
+    <div class="text">
+      <h1>Welcome to Glowther🌤️</h1>
+      <p>This app helps you find skincare products based on your facial skin type and real-time weather.</p>
+      <a href="/scan" class="button">☁️ Start Scanning</a>
+    </div>
+  </div>
+
+</body>
+</html>

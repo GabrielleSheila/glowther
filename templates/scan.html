@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scan Wajah - Glowther</title>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fdfaf7;
+      padding: 40px;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+    }
+
+    h2 {
+      text-align: center;
+      color: #2f4f4f;
+      margin-bottom: 20px;
+    }
+
+    video {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background-color: #d2b48c;
+      color: white;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #bc9e79;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>📸 Scan Wajah Kamu</h2>
+  <form method="POST" action="/form">
+    <video id="camera" autoplay playsinline></video>
+    <canvas id="canvas" style="display: none;"></canvas>
+    <input type="hidden" name="image_data" id="image_data">
+    <button type="button" onclick="captureAndSubmit()">📸 Capture & Continue</button>
+  </form>
+</div>
+
+<script>
+  const video = document.getElementById('camera');
+  const canvas = document.getElementById('canvas');
+  const imageDataInput = document.getElementById('image_data');
+
+  navigator.mediaDevices.getUserMedia({ video: true })
+    .then(stream => {
+      video.srcObject = stream;
+    })
+    .catch(err => {
+      alert('❌ Kamera tidak bisa diakses. Pastikan izin kamera diaktifkan.');
+    });
+
+  function captureAndSubmit() {
+    const context = canvas.getContext('2d');
+    canvas.width = 224;
+    canvas.height = 224;
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    const dataURL = canvas.toDataURL('image/jpeg', 0.8);
+    imageDataInput.value = dataURL;
+    alert("✅ Wajah berhasil di-capture! Lanjut ke form...");
+    document.querySelector("form").submit();
+  }
+</script>
+
+</body>
+</html>

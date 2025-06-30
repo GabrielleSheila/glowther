@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hasil Rekomendasi</title>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      padding: 40px;
+      background: #fdfaf7;
+    }
+
+    .box {
+      background: white;
+      max-width: 680px;
+      margin: auto;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #2f4f4f;
+    }
+
+    p {
+      line-height: 1.6;
+    }
+
+    .scan-again-btn {
+      display: inline-block;
+      margin-top: 30px;
+      width: 100%;
+      padding: 14px;
+      background-color: #888;
+      color: white;
+      font-size: 16px;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 12px;
+      transition: background-color 0.3s ease;
+    }
+
+    .scan-again-btn:hover {
+      background-color: #666;
+    }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h2>🧴 Rekomendasi Skincare untukmu</h2>
+  <p><strong>Lokasi:</strong> {{ location }} | <strong>Cuaca:</strong> {{ weather }}, {{ temp }}°C, Humidity {{ humidity }}%</p>
+  <p><strong>Jenis Kulit:</strong> {{ skin_type }}</p>
+  <p><strong>Alergi:</strong> {{ alergi_status }} {% if alergi_bahan %}- {{ alergi_bahan }}{% endif %}</p>
+  <p><strong>Produk Terakhir:</strong> {{ produk_nama }} ({{ produk_status }})</p>
+
+  <hr>
+
+  <p><strong>✨ Rekomendasi:</strong> {{ rekomendasi }}</p>
+  <p><strong>🚫 Hindari:</strong> {{ dihindari }}</p>
+  <p><strong>✅ Bahan Disarankan:</strong> {{ bahan_disarankan }}</p>
+
+  <!-- Tombol Scan Ulang -->
+  <a href="/scan" class="scan-again-btn">🔄 Scan Ulang</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!-- Updated form.html with responsive layout and simplified structure -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glowther - Skincare Form</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;600&display=swap');
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #fdfaf7;
+      font-family: 'Inter', sans-serif;
+      color: #333;
+    }
+
+    .logo-container {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+
+    .logo {
+      height: 50px;
+      width: auto;
+    }
+
+    .container {
+      max-width: 680px;
+      background: #fff;
+      margin: 100px auto 60px;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.07);
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      text-align: center;
+      color: #2f4f4f;
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      margin-bottom: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      color: #444;
+    }
+
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      font-size: 14px;
+      background: #fcfcfc;
+    }
+
+    button {
+      margin-top: 28px;
+      width: 100%;
+      padding: 14px;
+      background-color: #2f4f4f;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #1c3131;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        margin: 80px 20px;
+        padding: 30px 20px;
+      }
+
+      .logo-container {
+        top: 15px;
+        left: 15px;
+      }
+
+      .logo {
+        height: 45px;
+      }
+
+      h2 {
+        font-size: 22px;
+      }
+
+      button {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Logo Glowther -->
+  <div class="logo-container">
+    <img src="{{ url_for('static', filename='images/logo4.png') }}" alt="Glowther Logo" class="logo">
+  </div>
+
+  <div class="container">
+    <h2>📝 Additional Information</h2>
+    <form method="POST" action="/predict">
+      <input type="hidden" name="image_data" value="{{ image_data }}">
+
+      <label>🚫 Do you have any skincare allergies?</label>
+      <select name="alergi_status" required>
+        <option value="Tidak">Tidak</option>
+        <option value="Ya">Ya</option>
+      </select>
+
+      <label>🧪 If yes, what ingredient?</label>
+      <input type="text" name="alergi_bahan" placeholder="Contoh: Niacinamide, Alcohol">
+
+      <label>📦 Last skincare product used</label>
+      <input type="text" name="produk_nama" placeholder="Contoh: Wardah Hydrating Toner">
+
+      <label>✅ Was the product suitable?</label>
+      <select name="produk_status" required>
+        <option value="Belum Pernah">Belum Pernah</option>
+        <option value="Cocok">Cocok</option>
+        <option value="Tidak Cocok">Tidak Cocok</option>
+      </select>
+
+      <button type="submit">🔍 Submit</button>
+    </form>
+  </div>
+
+</body>
+</html>

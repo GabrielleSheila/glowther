@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Skin Type & Skincare Recommendation</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;600&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #fdfaf7;
+      font-family: 'Inter', sans-serif;
+      color: #333;
+    }
+
+    .logo-container {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+    }
+
+    .logo {
+      height: 60px;
+      width: auto;
+    }
+
+    .container {
+      max-width: 680px;
+      background: #fff;
+      margin: 120px auto 60px;
+      padding: 45px 40px;
+      border-radius: 20px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.07);
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      text-align: center;
+      color: #2f4f4f;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin-top: 25px;
+      margin-bottom: 10px;
+      font-weight: 600;
+      font-size: 14px;
+      color: #444;
+    }
+
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 13px 15px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      font-size: 14px;
+      background: #fcfcfc;
+    }
+
+    video {
+      width: 100%;
+      border-radius: 14px;
+      margin-bottom: 15px;
+    }
+
+    button {
+      margin-top: 30px;
+      width: 100%;
+      padding: 14px;
+      background-color: #2f4f4f;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #1c3131;
+    }
+
+    .capture-btn {
+      background-color: #d2b48c;
+      color: #fff;
+    }
+
+    .capture-btn:hover {
+      background-color: #bc9e79;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Logo kiri atas -->
+  <div class="logo-container">
+    <img src="{{ url_for('static', filename='images/logo4.png') }}" alt="Glowther Logo" class="logo">
+  </div>
+
+  <div class="container">
+    <h2>🧴 Skincare Recommender</h2>
+    <form method="POST" action="/predict" enctype="multipart/form-data">
+      <label>📷 Scan Your Face</label>
+      <video id="camera" autoplay playsinline></video>
+      <canvas id="canvas" style="display:none;"></canvas>
+      <input type="hidden" name="image_data" id="image_data">
+      <button type="button" class="capture-btn" onclick="capture()">📸 Capture Face</button>
+
+      <label>🚫 Do you have any skincare allergies?</label>
+      <select name="alergi_status">
+        <option value="Tidak">Tidak</option>
+        <option value="Ya">Ya</option>
+      </select>
+
+      <label>🧪 If yes, what ingredient?</label>
+      <input type="text" name="alergi_bahan" placeholder="Contoh: Niacinamide, Alcohol">
+
+      <label>📦 Last skincare product used</label>
+      <input type="text" name="produk_nama" placeholder="Contoh: Wardah Hydrating Toner">
+
+      <label>✅ Was the product suitable?</label>
+      <select name="produk_status">
+        <option value="Belum Pernah">Belum Pernah</option>
+        <option value="Cocok">Cocok</option>
+        <option value="Tidak Cocok">Tidak Cocok</option>
+      </select>
+
+      <button type="submit">🔍 Submit</button>
+    </form>
+  </div>
+
+  <script>
+  const video = document.getElementById('camera');
+  const canvas = document.getElementById('canvas');
+  const imageDataInput = document.getElementById('image_data');
+
+  navigator.mediaDevices.getUserMedia({ video: true })
+    .then(stream => {
+      video.srcObject = stream;
+    })
+    .catch(err => {
+      alert('Failed to access the camera. Please allow camera access.');
+    });
+
+  function capture() {
+    const context = canvas.getContext('2d');
+    canvas.width = 224;
+    canvas.height = 224;
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    const dataURL = canvas.toDataURL('image/jpeg', 0.8);
+    imageDataInput.value = dataURL;
+    alert("✅ Face captured! Now you can submit the form.");
+  }
+</script>
+
+</body>
+</html>
